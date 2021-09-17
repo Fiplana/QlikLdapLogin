@@ -7,7 +7,8 @@
     "start": "npm run build:dev && node ./dist/index.js",
     "build:dev": "webpack --env develeopment",
     "test": "mocha test",
-    "coverage": "nyc mocha test"
+    "coverage": "nyc mocha test",
+    "lint": "eslint ./src --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -45,5 +46,16 @@
     "webpack": "^5.53.0",
     "webpack-cli": "^4.8.0",
     "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-nibble": "^7.0.0",
+    "eslint-plugin-jsdoc": "^36.1.0",
+    "eslint-plugin-no-floating-promise": "^1.0.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
   }
 }

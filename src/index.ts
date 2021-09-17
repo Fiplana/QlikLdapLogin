@@ -1,4 +1,6 @@
-export function helloWorld(): string{
+/**
+ * Just a tester function.
+ */
+export function helloWorld(): string {
     return "Hello World!";
 }
-console.log("Tester");
