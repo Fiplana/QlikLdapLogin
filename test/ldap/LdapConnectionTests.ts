@@ -1,7 +1,7 @@
-import { describe, it } from "mocha";
-import { expect } from "chai";
-import { Logger } from "../../src/utils/Logger";
-import { LdapConnection } from "../../src/ldap/LdapConnection";
+/* eslint-disable no-unused-expressions */
+import {describe, it} from "mocha";
+import {expect} from "chai";
+import {LdapConnection} from "../../src/ldap/LdapConnection";
 
 describe("ldap", () => {
     describe("LdapConnection", () => {
