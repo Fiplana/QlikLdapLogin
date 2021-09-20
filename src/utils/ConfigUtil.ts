@@ -1,8 +1,8 @@
-import {ILdapConnectionSettings} from "../ldap/ILdapConnectionSettings";
 import * as _ from "lodash";
 import * as dotenv from "dotenv";
 import {Logger} from "./Logger";
 import {resolve} from "path";
+import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
 
 /**
  * Static helper class for config handling.
