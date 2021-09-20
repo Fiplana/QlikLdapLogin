@@ -1,4 +1,5 @@
 const nodeExternals = require("webpack-node-externals");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const webpackConfig = {
     mode: "development",
@@ -31,6 +32,13 @@ const webpackConfig = {
             ".ts",
             ".js",
         ],
-    }
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "src/static", to: "static" },
+            ]
+        })
+    ]
 };
 module.exports = webpackConfig;

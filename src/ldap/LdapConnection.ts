@@ -1,13 +1,12 @@
-import { Logger } from '../utils/Logger';
-import { Client } from 'ldapts';
-import { ILdapCheckUserResult } from './ILdapCheckUserResult';
-import { ILdapConnectionSettings } from './ILdapConnectionSettings';
+import {Logger} from "../utils/Logger";
+import {Client} from "ldapts";
+import {ILdapCheckUserResult} from "./ILdapCheckUserResult";
+import {ILdapConnectionSettings} from "./ILdapConnectionSettings";
 
 /**
  * Wrapper class for ldapts
  */
 export class LdapConnection {
-
     private ldapClient: Client;
 
     /**
@@ -26,7 +25,7 @@ export class LdapConnection {
                 timeout: 20000,
                 connectTimeout: 20000,
                 tlsOptions: {
-                    minVersion: 'TLSv1.2',
+                    minVersion: "TLSv1.2",
                 },
             });
         }
@@ -41,7 +40,7 @@ export class LdapConnection {
     public async checkUser(user: string, password: string): Promise<ILdapCheckUserResult> {
         const result: ILdapCheckUserResult = {
             success: false,
-        }
+        };
         try {
             await this.ldapClient.bind(user, password);
             result.success = true;
@@ -53,5 +52,4 @@ export class LdapConnection {
         }
         return result;
     }
-
 }
