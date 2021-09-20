@@ -4,6 +4,8 @@ import {Server as HTTPServer} from "http";
 import {ITLSOptions} from "./types/ITLSOptions";
 import fs from "fs";
 import {Logger} from "./utils/Logger";
+import {Router} from "./Router";
+import path from "path";
 
 /**
  * This is the service class.
@@ -58,8 +60,10 @@ export class QlikLdapLoginService {
     private readonly server?: HTTPSServer | HTTPServer;
 
     private constructor(port: number) {
-        this.app = express();
         Logger.initialize();
+        this.app = express();
+        this.registerStaticDirs();
+        Router.registerRoutes(this.app);
         const tlsOptions = QlikLdapLoginService.getTlsStartOptions();
         if (tlsOptions !== undefined) {
             this.server = createServer(tlsOptions, this.app).listen(port, () => {
@@ -71,6 +75,20 @@ export class QlikLdapLoginService {
             });
         }
     }
-}
 
+    private registerStaticDirs(): void {
+        const bootstrapJsPath = path.join(process.cwd(), "node_modules", "bootstrap", "dist", "js");
+        const bootstrapCssPath = path.join(process.cwd(), "node_modules", "bootstrap", "dist", "css");
+        const popperJsPath = path.join(process.cwd(), "node_modules", "popper.js", "dist");
+        const staticContent = path.join(process.cwd(), "dist", "static");
+        Logger.getLogger().debug("Bootstrap js files will be served from: " + bootstrapJsPath);
+        Logger.getLogger().debug("Bootstrap css files will be served from: " + bootstrapCssPath);
+        Logger.getLogger().debug("Popper js files will be served from: " + popperJsPath);
+        Logger.getLogger().debug("Static files will be served from: " + staticContent);
+        this.app.use("/bootstrapJs", express.static(bootstrapJsPath));
+        this.app.use("/bootstrapCss", express.static(bootstrapCssPath));
+        this.app.use("/popperJs", express.static(popperJsPath));
+        this.app.use("/static", express.static(staticContent));
+    }
+}
 QlikLdapLoginService.startServer();
