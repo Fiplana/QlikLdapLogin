@@ -10,6 +10,11 @@ import {Logger} from "./utils/Logger";
  */
 export class QlikLdapLoginService {
     /**
+     * Default port to listen on.
+     */
+    public static defaultServicePort = 9000;
+
+    /**
      * Starts the service.
      */
     public static startServer(): void {
@@ -26,7 +31,7 @@ export class QlikLdapLoginService {
         if (process.env.SERVER_PORT !== undefined && !isNaN(parseInt(process.env.SERVER_PORT))) {
             return parseInt(process.env.SERVER_PORT);
         }
-        return 9000;
+        return QlikLdapLoginService.defaultServicePort;
     }
 
     /**
@@ -37,11 +42,11 @@ export class QlikLdapLoginService {
             process.env.CERT_FILE_PATH !== undefined &&
             fs.existsSync(process.env.CERT_FILE_PATH) &&
             process.env.KEY_FILE_PATH !== undefined &&
-            fs.existsSync(process.env.CERT_FILE_PATH)
+            fs.existsSync(process.env.KEY_FILE_PATH)
         ) {
             return {
                 cert: fs.readFileSync(process.env.CERT_FILE_PATH),
-                key: fs.readFileSync(process.env.CERT_FILE_PATH),
+                key: fs.readFileSync(process.env.KEY_FILE_PATH),
             };
         }
         return undefined;
