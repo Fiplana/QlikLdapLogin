@@ -20,7 +20,6 @@ export class Router {
     }
 
     private static login(req: Request, res: Response): void {
-        Logger.getLogger().info("Got login request for user: ");
         const connection = QlikLdapLoginService.getInstance().ldapConnection;
         if (req.params.username === undefined || req.params.password === undefined) {
             res.status(400);
@@ -28,6 +27,7 @@ export class Router {
             res.send();
             return;
         }
+        Logger.getLogger().info("Got login request for user: ", req.params.username);
         connection
             .checkUser(req.params.username, req.params.password)
             .then(() => {
