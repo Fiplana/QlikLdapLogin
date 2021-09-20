@@ -4,8 +4,9 @@
   "description": "Provides ldap auth for qlik sense enterprise",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build:dev && node --inspect ./dist/index.js",
+    "start": "npm run build:dev && npm run build:frontend:dev && node --inspect ./dist/index.js",
     "build:dev": "webpack --env develeopment",
+    "build:frontend:dev": "webpack --env develeopment --config ./webpack.frontend.js",
     "test": "mocha test",
     "coverage": "nyc mocha test",
     "lint": "eslint ./src --ext .ts"
@@ -63,9 +64,9 @@
     "eslint-plugin-no-floating-promise": "^1.0.2",
     "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.1",
+    "ldapts": "^3.0.7",
     "particles.js": "^2.0.0",
     "popper.js": "^1.16.1",
-    "ldapts": "^3.0.7",
     "prettier": "^2.4.1"
   }
 }

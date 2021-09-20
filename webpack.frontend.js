@@ -1,11 +1,12 @@
 const nodeExternals = require("webpack-node-externals");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const webpackConfig = {
     mode: "development",
-    name: "server",
-    target: "node",
+    name: "frontend",
+    target: "web",
     entry: {
-        index: "./src/QlikLdapLoginService.ts",
+        "static/login": "./src/static/Login.ts",
     },
     output: {
         filename: "[name].js",
@@ -26,5 +27,10 @@ const webpackConfig = {
     resolve: {
         extensions: [".ts", ".ts", ".js"],
     },
+    plugins: [
+        new CopyPlugin({
+            patterns: [{from: "src/static", to: "static", globOptions: {ignore: ["**.ts"]}}],
+        }),
+    ],
 };
 module.exports = webpackConfig;

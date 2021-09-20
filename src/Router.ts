@@ -1,3 +1,4 @@
+import {Logger} from "./utils/Logger";
 import {Application, Request, Response} from "express";
 import path from "path";
 import {QlikLdapLoginService} from "./QlikLdapLoginService";
@@ -19,10 +20,12 @@ export class Router {
     }
 
     private static login(req: Request, res: Response): void {
+        Logger.getLogger().info("Got login request for user: ");
         const connection = QlikLdapLoginService.getInstance().ldapConnection;
         if (req.params.user === undefined || req.params.password === undefined) {
             res.status(400);
-            res.send("Missing username or password!");
+            res.json({err: "Missing username or password!"});
+            res.send();
             return;
         }
         connection
