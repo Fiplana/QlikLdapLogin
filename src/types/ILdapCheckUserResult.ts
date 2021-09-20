@@ -2,7 +2,6 @@
  * Contains the check user result.
  */
 export interface ILdapCheckUserResult {
-    
     /**
      * TRUE, if the user can be bound to the LDAP.
      */
@@ -12,5 +11,4 @@ export interface ILdapCheckUserResult {
      * Optional error if the user cannot be bouind to the LDAP.
      */
     error?: Error;
-    
 }
