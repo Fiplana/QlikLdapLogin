@@ -1,0 +1,33 @@
+version: '2'
+
+networks:
+  bridge-network:
+    driver: bridge
+services:
+  openldap:
+    container_name: openldap
+    image: bitnami/openldap:2
+    ports:
+      - '1389:1389'
+    environment:
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=adminpassword
+      - LDAP_USERS=user01,user02
+      - LDAP_PASSWORDS=password1,password2
+      - LDAP_PORT_NUMBER=1389
+      - LDAP_ENABLE_TLS=no
+      - LDAP_ROOT=dc=example,dc=org
+      - LDAP_CONFIG_ADMIN_ENABLED=no
+      - LDAP_USER_DC=users
+      - LDAP_GROUP=readers
+ #     - LDAP_EXTRA_SCHEMAS=inetorgperson
+      - LDAP_SKIP_DEFAULT_TREE=no
+      - LDAP_ULIMIT_NOFILES=1024
+      - LDAP_ALLOW_ANON_BINDING=yes
+    networks:
+      - bridge-network
+#    volumes:
+#      - 'openldap_data:/bitnami/openldap'
+volumes:
+  openldap_data:
+    driver: local

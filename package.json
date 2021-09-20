@@ -65,6 +65,7 @@
     "express": "^4.17.1",
     "particles.js": "^2.0.0",
     "popper.js": "^1.16.1",
+    "ldapts": "^3.0.7",
     "prettier": "^2.4.1"
   }
 }
