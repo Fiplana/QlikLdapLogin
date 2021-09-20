@@ -6,6 +6,8 @@ import fs from "fs";
 import {Logger} from "./utils/Logger";
 import {Router} from "./Router";
 import path from "path";
+import {LdapConnection} from "./ldap/LdapConnection";
+import {ILdapConnectionSettings} from "./types/ILdapConnectionSettings";
 
 /**
  * This is the service class.
@@ -54,13 +56,49 @@ export class QlikLdapLoginService {
         return undefined;
     }
 
+    /**
+     * Get ldap connection params from env vars.
+     */
+    public static getLdapConnectionFromEnv(): ILdapConnectionSettings {
+        let port;
+        if (process.env.LDAP_PORT !== undefined && !isNaN(parseInt(process.env.LDAP_PORT))) {
+            port = parseInt(process.env.LDAP_PORT);
+        }
+        let useSsl = false;
+        if (process.env.LDAP_SSL !== undefined && (process.env.LDAP_SSL == "true" || process.env.LDAP_SSL == "false")) {
+            useSsl = Boolean(process.env.LDAP_SSL);
+            if (useSsl && port === undefined) {
+                port = 686;
+            }
+        }
+        if (port === undefined) {
+            port = 389;
+        }
+        return {
+            host: process.env.LDAP_HOST ?? "127.0.0.1",
+            port,
+            useSsl,
+        };
+    }
+    /**
+     * Instance getter.
+     */
+    public static getInstance(): QlikLdapLoginService {
+        return QlikLdapLoginService.instance;
+    }
+
     private static instance: QlikLdapLoginService;
 
+    /**
+     * The signle ldap connection.
+     */
+    public readonly ldapConnection: LdapConnection;
     private readonly app: Application;
     private readonly server?: HTTPSServer | HTTPServer;
 
     private constructor(port: number) {
         Logger.initialize();
+        this.ldapConnection = new LdapConnection(QlikLdapLoginService.getLdapConnectionFromEnv());
         this.app = express();
         this.registerStaticDirs();
         Router.registerRoutes(this.app);
