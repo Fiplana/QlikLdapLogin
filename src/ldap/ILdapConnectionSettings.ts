@@ -2,7 +2,6 @@
  * Defines the settings for the LDAP connection.
  */
 export interface ILdapConnectionSettings {
-
     /**
      * The hostname of the LDAP server, i.e. "openldap.example.org".
      */
@@ -17,5 +16,4 @@ export interface ILdapConnectionSettings {
      * Set to TRUE to use a secure connection.
      */
     useSsl: boolean;
-
 }
