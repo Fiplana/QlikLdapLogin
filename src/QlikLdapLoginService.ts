@@ -80,15 +80,18 @@ export class QlikLdapLoginService {
         const bootstrapJsPath = path.join(process.cwd(), "node_modules", "bootstrap", "dist", "js");
         const bootstrapCssPath = path.join(process.cwd(), "node_modules", "bootstrap", "dist", "css");
         const popperJsPath = path.join(process.cwd(), "node_modules", "popper.js", "dist");
+        const particlesJsPath = path.join(process.cwd(), "node_modules", "particles.js");
         const staticContent = path.join(process.cwd(), "dist", "static");
         Logger.getLogger().debug("Bootstrap js files will be served from: " + bootstrapJsPath);
         Logger.getLogger().debug("Bootstrap css files will be served from: " + bootstrapCssPath);
         Logger.getLogger().debug("Popper js files will be served from: " + popperJsPath);
+        Logger.getLogger().debug("Particlesjs files will be served from: " + particlesJsPath);
         Logger.getLogger().debug("Static files will be served from: " + staticContent);
         this.app.use("/bootstrapJs", express.static(bootstrapJsPath));
         this.app.use("/bootstrapCss", express.static(bootstrapCssPath));
         this.app.use("/popperJs", express.static(popperJsPath));
         this.app.use("/static", express.static(staticContent));
+        this.app.use("/particlesJs", express.static(particlesJsPath));
     }
 }
 QlikLdapLoginService.startServer();

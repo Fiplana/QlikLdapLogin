@@ -15,12 +15,13 @@
            - Graphics Source: https://github.com/twitter/twemoji/blob/master/assets/svg/1f47e.svg
            - Graphics License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
     -->
-    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
     <script src="/popperJs/umd/popper.min.js"></script>
     <script src="/bootstrapJs/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <div id="tsparticles"></div>
     <div class="container">
         <div class="flexContainer">
             <form class="flexForm">
@@ -54,4 +55,15 @@
             </form>
         </div>
     </div>
+    <div id="particles-js"></div>
+    <script src="/particlesJs/particles.js"></script>
+    <script>
+        /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+        window.addEventListener('DOMContentLoaded', (event) => {
+            particlesJS.load("particles-js", "/static/particles.json", function () {
+                console.log('callback - particles.js config loaded');
+            });
+        });
+
+    </script>
 </body>

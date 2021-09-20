@@ -63,6 +63,7 @@
     "eslint-plugin-no-floating-promise": "^1.0.2",
     "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.1",
+    "particles.js": "^2.0.0",
     "popper.js": "^1.16.1",
     "prettier": "^2.4.1"
   }
