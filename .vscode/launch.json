@@ -1,0 +1,42 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Service",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/dist",
+            "program": "${workspaceRoot}/src/QlikLdapLoginService.ts",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script", "start"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "outFiles": [
+              "${workspaceRoot}/dist/index.js"
+            ],
+            "sourceMaps": true
+        },
+        {   
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha Tests",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/test/**/*.ts",
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector"
+        }
+
+    ]
+}

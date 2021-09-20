@@ -5,13 +5,14 @@ const webpackConfig = {
     name: "server",
     target: "node",
     entry: {
-        index: './src/index.ts',
+        index: './src/QlikLdapLoginService.ts',
     },
     output: {
-        filename: '[name].js',
+        filename: 'index.js',
         path: __dirname + '/dist',
+        devtoolModuleFilenameTemplate: '[absolute-resource-path]',
     },
-    devtool: process.env.production === true ? undefined : "inline-source-map",
+    devtool: process.env.NODE_ENV === "production" ? undefined : "cheap-source-map",
     externals: [
         nodeExternals(),
     ],
