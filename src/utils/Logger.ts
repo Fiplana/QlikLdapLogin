@@ -5,7 +5,7 @@ const bunyanDebugStream = require("bunyan-debug-stream");
 import * as path from "path";
 import fs from "fs";
 /**
- * Logger class, which logs the the process output and in prod to a file.
+ * Wrapper class around the logger, which logs the the process output and in prod to a file.
  */
 export class Logger {
     /**
@@ -14,8 +14,9 @@ export class Logger {
     public static getLogger(): BunyanLogger {
         if (Logger.instance === undefined) {
             throw new Error("Logger not initialized!");
+        } else {
+            return Logger.instance.logger;
         }
-        return this.instance.logger;
     }
 
     /**
@@ -27,10 +28,10 @@ export class Logger {
         }
     }
 
-    private static instance: Logger;
-    private logger: BunyanLogger;
+    protected static instance?: Logger;
+    protected logger: BunyanLogger;
 
-    private constructor() {
+    protected constructor() {
         const logFile = path.join(process.cwd(), "logs", "QlikSenseLdapService.log");
         if (!fs.existsSync(path.dirname(logFile))) {
             fs.mkdirSync(path.dirname(logFile));
