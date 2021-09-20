@@ -1,7 +1,7 @@
 import {Logger} from "../utils/Logger";
 import {Client} from "ldapts";
-import {ILdapCheckUserResult} from "./ILdapCheckUserResult";
-import {ILdapConnectionSettings} from "./ILdapConnectionSettings";
+import {ILdapCheckUserResult} from "../types/ILdapCheckUserResult";
+import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
 
 /**
  * Wrapper class for ldapts

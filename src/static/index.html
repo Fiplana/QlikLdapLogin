@@ -24,7 +24,7 @@
     <div id="tsparticles"></div>
     <div class="container">
         <div class="flexContainer">
-            <form class="flexForm">
+            <form class="flexForm" onsubmit="event.preventDefault();">
                 <div class="row">
                     <div class="col-4">
                         <!--empty-->
@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="email" class="form-control" id="username" placeholder="Username">
+                        <input type="text" class="form-control" id="username" placeholder="Username">
                     </div>
                     <div class="form-group">
                         <label for="pwInput">Password</label>
@@ -48,8 +48,11 @@
                     </div>
                     <div class="row noRightPadding">
                         <div class="col-12 noRightPadding">
-                            <button id="loginBtn" type="submit" class="btn btn-primary">Login</button>
+                            <button id="loginBtn" class="btn btn-primary">Login</button>
                         </div>
+                    </div>
+                    <div id="errorDiv" class="row">
+                        <!--Errors will appear here-->
                     </div>
                 </div>
             </form>
@@ -64,6 +67,6 @@
                 console.log('callback - particles.js config loaded');
             });
         });
-
     </script>
+    <script src="/static/login.js"></script>
 </body>

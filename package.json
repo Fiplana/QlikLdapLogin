@@ -4,8 +4,9 @@
   "description": "Provides ldap auth for qlik sense enterprise",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build:dev && node --inspect ./dist/index.js",
+    "start": "npm run build:dev && npm run build:frontend:dev && node --inspect ./dist/index.js",
     "build:dev": "webpack --env develeopment",
+    "build:frontend:dev": "webpack --env develeopment --config ./webpack.frontend.js",
     "test": "mocha test",
     "coverage": "nyc mocha test",
     "lint": "eslint ./src --ext .ts"
