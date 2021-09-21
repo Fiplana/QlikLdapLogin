@@ -21,15 +21,20 @@ export class Router {
 
     private static login(req: Request, res: Response): void {
         const connection = QlikLdapLoginService.getInstance().ldapConnection;
-        if (req.params.username === undefined || req.params.password === undefined) {
+        if (
+            req.body.username === undefined ||
+            req.body.username === "" ||
+            req.body.password === undefined ||
+            req.body.password === ""
+        ) {
             res.status(400);
             res.json({err: "Missing username or password!"});
             res.send();
             return;
         }
-        Logger.getLogger().info("Got login request for user: ", req.params.username);
+        Logger.getLogger().info("Got login request for user: ", req.body.username);
         connection
-            .checkUser(req.params.username, req.params.password)
+            .checkUser(req.body.username, req.body.password)
             .then(() => {
                 res.status(200);
                 res.send();

@@ -8,7 +8,7 @@ import {Router} from "./Router";
 import path from "path";
 import {LdapConnection} from "./ldap/LdapConnection";
 import {ConfigUtil} from "./utils/ConfigUtil";
-
+import bodyParser from "body-parser";
 /**
  * This is the service class.
  */
@@ -77,6 +77,7 @@ export class QlikLdapLoginService {
         this.ldapConnection = new LdapConnection(ConfigUtil.getLdapConnectionSettings());
         this.app = express();
         this.registerStaticDirs();
+        this.registerMiddelwares();
         Router.registerRoutes(this.app);
         const tlsOptions = QlikLdapLoginService.getTlsStartOptions();
         if (tlsOptions !== undefined) {
@@ -106,6 +107,11 @@ export class QlikLdapLoginService {
         this.app.use("/popperJs", express.static(popperJsPath));
         this.app.use("/static", express.static(staticContent));
         this.app.use("/particlesJs", express.static(particlesJsPath));
+    }
+
+    private registerMiddelwares(): void {
+        // parse application/x-www-form-urlencoded
+        this.app.use(bodyParser.urlencoded({extended: true}));
     }
 }
 QlikLdapLoginService.startServer();
