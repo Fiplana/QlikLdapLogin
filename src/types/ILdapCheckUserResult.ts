@@ -11,4 +11,9 @@ export interface ILdapCheckUserResult {
      * Optional error if the user cannot be bouind to the LDAP.
      */
     error?: Error;
+
+    /**
+     * The user identifier.
+     */
+    userId?: string;
 }

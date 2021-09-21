@@ -45,7 +45,15 @@ describe("Router", () => {
                 .post("/login")
                 .send("username=cn=user01,ou=users,dc=example,dc=org")
                 .send("password=password1")
-                .expect(200);
-        });
+                .expect(302);
+        }).timeout(5000);
+        it("should not perform login", async () => {
+            new LdapConnection(ConfigUtil.getLdapConnectionSettings());
+            await request(app)
+                .post("/login")
+                .send("username=cn=user01,ou=users,dc=example,dc=org")
+                .send("password=password2")
+                .expect(403);
+        }).timeout(5000);
     });
 });

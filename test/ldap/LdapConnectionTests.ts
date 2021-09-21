@@ -12,14 +12,14 @@ describe("ldap", () => {
                 const connection = new LdapConnection(ConfigUtil.getLdapConnectionSettings());
                 const result = await connection.checkUser("cn=user01,ou=users,dc=example,dc=org", "password1");
                 expect(result.success).to.be.true;
-            });
+            }).timeout(5000);
             it("should not check a user successfully", async () => {
                 // assumes the LDAP server is running, see docker-compose.yml
                 const connection = new LdapConnection(ConfigUtil.getLdapConnectionSettings());
                 const result = await connection.checkUser("cn=user01,ou=users,dc=example,dc=org", "password2");
                 expect(result.success).to.be.false;
                 expect(result.error?.message).to.equal("Invalid credentials during a bind operation. Code: 0x31");
-            });
+            }).timeout(5000);
         });
     });
 });

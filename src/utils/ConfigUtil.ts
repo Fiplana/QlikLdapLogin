@@ -60,6 +60,22 @@ export class ConfigUtil {
     }
 
     /**
+     * Returns the user directory for all users.
+     */
+    public static getUserDirectory(): string {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        return _.get(process.env, "USER_DIRECTORY_NAME", "EXAMPLE");
+    }
+
+    /**
+     * Returns the LDAP field name for the user identifier.
+     */
+    public static getLdapUserIdField(): string {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        return _.get(process.env, "LDAP_USERID_FIELD", "uid");
+    }
+
+    /**
      * Returns the configured certificate password.
      */
     public static getClientPfxPassword(): string {

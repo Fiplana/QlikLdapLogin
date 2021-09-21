@@ -2,6 +2,8 @@ import {Logger} from "../utils/Logger";
 import {Client} from "ldapts";
 import {ILdapCheckUserResult} from "../types/ILdapCheckUserResult";
 import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
+import {ConfigUtil} from "../utils/ConfigUtil";
+import * as _ from "lodash";
 
 /**
  * Wrapper class for ldapts
@@ -43,12 +45,29 @@ export class LdapConnection {
         };
         try {
             await this.ldapClient.bind(user, password);
-            result.success = true;
+            const {searchEntries} = await this.ldapClient.search(user, {
+                attributes: [ConfigUtil.getLdapUserIdField()],
+                returnAttributeValues: true,
+            });
+            if (_.get(searchEntries, "length") !== 1) {
+                Logger.getLogger().warn("Unexpected LDAP result", searchEntries);
+                throw new Error("LDAP search returns an unexpected result");
+            } else {
+                const userId = _.get(searchEntries[0], ConfigUtil.getLdapUserIdField());
+                if (!_.isString(userId) || userId.length < 1) {
+                    Logger.getLogger().warn("Unexpected User result", userId);
+                    throw new Error("Unexpected User result");
+                }
+                result.userId = userId;
+                result.success = true;
+            }
         } catch (err) {
             if (err instanceof Error) {
                 result.error = err;
                 Logger.getLogger().warn("Check for user " + user + " failed:", err);
             }
+        } finally {
+            await this.ldapClient.unbind();
         }
         return result;
     }
