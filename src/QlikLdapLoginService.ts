@@ -63,16 +63,16 @@ export class QlikLdapLoginService {
         return QlikLdapLoginService.instance;
     }
 
-    private static instance: QlikLdapLoginService;
+    protected static instance: QlikLdapLoginService;
 
     /**
      * The signle ldap connection.
      */
     public readonly ldapConnection: LdapConnection;
-    private readonly app: Application;
-    private readonly server?: HTTPSServer | HTTPServer;
+    protected readonly app: Application;
+    protected readonly server?: HTTPSServer | HTTPServer;
 
-    private constructor(port: number) {
+    protected constructor(port: number) {
         Logger.initialize();
         this.ldapConnection = new LdapConnection(ConfigUtil.getLdapConnectionSettings());
         this.app = express();
