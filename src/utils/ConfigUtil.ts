@@ -1,5 +1,7 @@
 import * as _ from "lodash";
 import * as dotenv from "dotenv";
+import fileExists from "file-exists";
+import {readFileSync} from "fs";
 import {Logger} from "./Logger";
 import {resolve} from "path";
 import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
@@ -24,13 +26,47 @@ export class ConfigUtil {
             Logger.getLogger().warn("Could not parse port ", process.env.LDAP_PORT);
             port = defaultPort;
         }
-        const settings: ILdapConnectionSettings = {
+        return {
             host,
             port,
             useSsl,
         };
-        Logger.getLogger().info("Current LDAP configuration: ", settings);
-        return settings;
+    }
+
+    /**
+     * Returns the configured URI of the QPS.
+     */
+    public static getQpsUri(): string {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        return _.get(process.env, "QPS_URI", "https://qlikserver.example.org:4243/qps/customVirtualProxyPrefix");
+    }
+
+    /**
+     * Returns the configured certificate path for authentication.
+     */
+    public static getClientPfx(): Buffer {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        const clientPfxPath = resolve(_.get(process.env, "QPS_CERTIFICATE_PATH", "./client.pfx"));
+        if (!fileExists(clientPfxPath)) {
+            throw new Error("Could not find the certificate:" + clientPfxPath);
+        }
+        return readFileSync(clientPfxPath);
+    }
+
+    /**
+     * Returns the configured certificate password.
+     */
+    public static getClientPfxPassword(): string {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        return _.get(process.env, "QPS_CERTIFICATE_PASSWORD", "");
+    }
+
+    /**
+     * Returns the configured redirect URI of the Qlik Sense hub.
+     */
+    public static getHubUri(): string {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        return _.get(process.env, "HUB_URI", "https://qlikserver.example.org/hub/customVirtualProxyPrefix");
     }
 
     /**
