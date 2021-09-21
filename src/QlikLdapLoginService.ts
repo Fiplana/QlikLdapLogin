@@ -74,7 +74,9 @@ export class QlikLdapLoginService {
 
     protected constructor(port: number) {
         Logger.initialize();
-        this.ldapConnection = new LdapConnection(ConfigUtil.getLdapConnectionSettings());
+        const ldapSettings = ConfigUtil.getLdapConnectionSettings();
+        Logger.getLogger().info("Current LDAP configuration: ", ldapSettings);
+        this.ldapConnection = new LdapConnection(ldapSettings);
         this.app = express();
         this.registerStaticDirs();
         this.registerMiddelwares();
