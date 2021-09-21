@@ -14,7 +14,6 @@ const webpackConfig = {
         devtoolModuleFilenameTemplate: "[absolute-resource-path]",
     },
     devtool: process.env.NODE_ENV === "production" ? undefined : "cheap-source-map",
-    externals: [nodeExternals()],
     module: {
         rules: [
             {
