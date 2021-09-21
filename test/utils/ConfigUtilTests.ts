@@ -21,7 +21,7 @@ describe("utils", () => {
                         throw new Error("Error has wrong instance");
                     }
                     // eslint-disable-next-line no-unused-expressions
-                    expect(err.message.startsWith("ENOENT: no such file or directory")).to.be.true;
+                    expect(err.message.startsWith("Could not find the certificate")).to.be.true;
                 }
             });
         });

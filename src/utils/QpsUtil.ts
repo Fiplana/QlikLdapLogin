@@ -36,10 +36,9 @@ export class QpsUtil {
 
     /**
      * Generates a Xrfkey which must be used prevent cross-site attacks.
-     * @returns {string} The Xrfkey.
+     * @returns The Xrfkey.
      */
     private static generateXrfKey(): string {
-        /* eslint-enable max-len*/
         const xrfKeyLength = 16;
         const xrfKey = [];
         // prettier-ignore

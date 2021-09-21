@@ -1,7 +1,6 @@
 import * as _ from "lodash";
 import * as dotenv from "dotenv";
-import fileExists from "file-exists";
-import {readFileSync} from "fs";
+import {readFileSync, existsSync} from "fs";
 import {Logger} from "./Logger";
 import {resolve} from "path";
 import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
@@ -42,15 +41,22 @@ export class ConfigUtil {
     }
 
     /**
-     * Returns the configured certificate path for authentication.
+     * Returns the cached certificate for authentication.
      */
     public static getClientPfx(): Buffer {
         dotenv.config({path: resolve(process.cwd(), ".env")});
         const clientPfxPath = resolve(_.get(process.env, "QPS_CERTIFICATE_PATH", "./client.pfx"));
-        if (!fileExists(clientPfxPath)) {
-            throw new Error("Could not find the certificate:" + clientPfxPath);
+        if (!ConfigUtil.clientPfxCache.has(clientPfxPath)) {
+            if (!existsSync(clientPfxPath)) {
+                throw new Error("Could not find the certificate:" + clientPfxPath);
+            }
+            ConfigUtil.clientPfxCache.set(clientPfxPath, readFileSync(clientPfxPath));
         }
-        return readFileSync(clientPfxPath);
+        const certificate = ConfigUtil.clientPfxCache.get(clientPfxPath);
+        if (certificate == null) {
+            throw new Error("client.pfx must not be NULL or empty");
+        }
+        return certificate;
     }
 
     /**
@@ -68,6 +74,8 @@ export class ConfigUtil {
         dotenv.config({path: resolve(process.cwd(), ".env")});
         return _.get(process.env, "HUB_URI", "https://qlikserver.example.org/hub/customVirtualProxyPrefix");
     }
+
+    private static clientPfxCache = new Map<string, Buffer>();
 
     /**
      * Static class.
