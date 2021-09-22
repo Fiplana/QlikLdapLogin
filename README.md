@@ -8,6 +8,14 @@ Be sure that Node.js is installed on the Host that should run this service. You 
 
 # Installation (Linux)
 
+Run the following commands: 
+```
+    npm install
+    npm run build:prod
+```
+After running these commands, there should appear a dist directory. Pleas register a Node.js Service which executes the "./dist/index.js" file as as deamon service. (Systemd example here: https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/).  
+The working directory of the service should be the root directory (NOT ./dist)! 
+
 # Service configuration
 To configure the service you must provide a ".env" file. After executing the installation you should rename the "sample.env" file to "./.env". Than you can configure the following parameters in it: 
 | Variable                 | Description                                                                                                                                                             | Default Value                                              |
