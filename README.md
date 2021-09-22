@@ -4,7 +4,7 @@ However it is not possible to perfom a login with these useres, if your LDAP ser
 ![](https://github.com/InformDataLab/.github/blob/main/images/QlikLdapLogin60Fps.gif)
 
 # Installation (Windows)
-Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we recomend the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
+Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we recommend the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
 
 # Installation (Linux)
 
