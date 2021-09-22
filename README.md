@@ -31,3 +31,8 @@ To configure the service you must provide a ".env" file. After executing the ins
 Make sure that you restart the service after changing any of this env variables!!!
 
 # Qlik Sense Virtual Proxy Configuration
+In the Qlik Management Console you have to provide a new virtual proxy. You got to provide the following fields in the new virtual proxy:  
+ -  Session cookie header name: X-Qlik-SessionLdap
+ - Authentication module redirect uir: Here you got to provide the adress of this service (https://service:9000)
+ - Host allow list: Register this service as an allowed host (service:9000)
+ - Under "Associated items", click onto "Proxies" and register the Central Node Proxy
