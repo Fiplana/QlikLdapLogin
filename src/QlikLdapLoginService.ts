@@ -9,6 +9,8 @@ import path from "path";
 import {LdapConnection} from "./ldap/LdapConnection";
 import {ConfigUtil} from "./utils/ConfigUtil";
 import bodyParser from "body-parser";
+import cors from "cors";
+
 /**
  * This is the service class.
  */
@@ -114,6 +116,7 @@ export class QlikLdapLoginService {
     private registerMiddelwares(): void {
         // parse application/x-www-form-urlencoded
         this.app.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(cors());
     }
 }
 QlikLdapLoginService.startServer();

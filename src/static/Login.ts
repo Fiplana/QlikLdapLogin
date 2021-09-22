@@ -23,12 +23,15 @@ export class LoginFormController {
             body: queryString.stringify({
                 username: userName.value,
                 password: pwInput.value,
+                targetId: new URL(window.location.href).searchParams.get("targetId"),
             }),
         })
             .then(async (response) => {
                 const paresResponse = await response.json();
                 if (paresResponse.err !== undefined) {
                     throw new Error(paresResponse.err);
+                } else if (paresResponse.url !== undefined) {
+                    window.location.href = paresResponse.url;
                 }
             })
             .catch(function (error) {

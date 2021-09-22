@@ -26,7 +26,7 @@ To configure the service you must provide a ".env" file. After executing the ins
 | QPS_URI                  | Address of the Qlik Sense Virtual Proxy  (will be configured in the next step.)                                                                                         | https://qlikserver.example.org:4243/qps/customVirtualProxy |
 | QPS_CERTIFICATE_PATH     | Path to a client.pfx generated via qmc                                                                                                                                  | ./client.pfx                                               |
 | QPS_CERTIFICATE_PASSOWRD | Password for the QPS_CERTIFICATE                                                                                                                                        | ""                                                         |
-| HUB_URI                  | URL to the Qlik Sense HUB (with virtual proxy suffix)                                                                                                                   | https://qlikserver.example.org/hub/customVirtualProxy      |
+| HUB_URI                  | URL to the Qlik Sense HUB (with virtual proxy suffix)                                                                                                                   | https://qlikserver.example.org/customVirtualProxy/hub/      |
 
 Make sure that you restart the service after changing any of this env variables!!!
 
