@@ -24,44 +24,20 @@
     <div id="tsparticles"></div>
     <div class="container">
         <div class="flexContainer">
-            <form class="flexForm" onsubmit="event.preventDefault();">
-                <div class="row">
-                    <div class="col-4">
-                        <!--empty-->
-                    </div>
-                    <div class="col-4">
-                        <!--https://www.pngaaa.com/detail/5505249-->
-                        <img id="customLogo" src="/static/logo.png">
-                    </div>
-                    <div class="col-4">
-                        <!--empty-->
-                    </div>
+            <form class="flexForm text-center" onsubmit="event.preventDefault();">
+                <img id="customLogo" class="mb-4" src="/static/logo.png">
+                <h1 class="h3 mb-3 fw-normal">Qlik Ldap Login Service</h1>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <label for="username">Username</label>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwInput">Password</label>
-                        <input type="password" class="form-control" id="pwInput" placeholder="Password">
-                    </div>
-                    <div class="row noRightPadding">
-                        <div class="col-12 noRightPadding">
-                            <button id="loginBtn" class="btn btn-primary">Login</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <!--empty-->
-                        </div>
-                        <div id="errorDiv" class="col-4">
-                            <!--Errors will appear here-->
-                        </div>
-                        <div class="col-4">
-                            <!--empty-->
-                        </div>
-                    </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="pwInput" placeholder="Password">
+                    <label for="pwInput">Password</label>
+                </div>
+                <button id="loginBtn" class="btn btn-primary w-100">Login</button>
+                <div id="errorDiv">
+                    <!--Errors will appear here-->
                 </div>
             </form>
         </div>

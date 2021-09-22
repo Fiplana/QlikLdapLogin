@@ -6,25 +6,43 @@
     justify-content: center;
 }
 
-.flexForm{
+.flexForm {
+    width: 400px;
     align-self: auto;
-    background-color: #ffffffe8;
+    background-color: #ffffffaa;
     border: 1px solid #8080804f;
-    border-radius: 25px;
-    padding: 10px;
+    border-radius: .3rem;
+    padding: 25px;
     box-shadow: 1px 1px 7px 0px rgb(0 0 0 / 20%);
-    padding-bottom: 50px;
+    padding-bottom: 25px;
+}
+
+.flexForm .form-floating input[type='text'] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.flexForm .form-floating input[type='password'] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.flexForm .form-floating:focus-within {
+    z-index: 2;
 }
 
 #customLogo{
     position: relative;
-    width: 70%;
-    margin-left: 15%;
+    width: 50%;
+    margin-left: 0%;
 }
 
 #loginBtn{
     width: inherit;
     margin-top: 10px;
+    background-color: #ede300;
+    border-color: #ede300;
+    color: #023744;
 }
 
 .noRightPadding{
@@ -38,11 +56,16 @@
     width: 100vw;
     z-index: -1;
     background-color: #023744;
+    overflow: hidden;
 }
 
 .errText{
     text-align: center;
-    padding-top: 50px;
+    margin-top: 25px;
     color: #980000;
     font-size: 16pt;
+    padding: 10px 0;
+    background-color: #ffc3c3b3;
+    border: 1px solid #980000;
+    border-radius: .3rem;
 }
