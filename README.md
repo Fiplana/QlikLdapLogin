@@ -4,12 +4,12 @@ However it is not possible to perfom a login with these useres, if your LDAP ser
 ![](https://github.com/InformDataLab/.github/blob/main/images/QlikLdapLogin60Fps.gif)
 
 # Installation (Windows)
-Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we reccomand the LTS version). After installing node you can execute the install.bat, which will install the service as a windows service.
+Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we reccomand the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
 
 # Installation (Linux)
 
 # Service configuration
-To configure the service you must provide a ".env" file. After executing the installation you should rename the "sample.env" file to ".env". Than you can configure the following parameters in it: 
+To configure the service you must provide a ".env" file. After executing the installation you should rename the "sample.env" file to "./.env". Than you can configure the following parameters in it: 
 | Variable                 | Description                                                                                                                                                             | Default Value                                              |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | LDAP_HOST                | Name of the LDAP server                                                                                                                                                 | ldap.example.org                                           |
