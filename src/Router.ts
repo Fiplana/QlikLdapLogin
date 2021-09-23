@@ -19,7 +19,7 @@ export class Router {
     }
 
     private static getLoginMask(req: Request, res: Response): void {
-        res.sendFile(path.join(process.cwd(), "dist", "static", "index.html"));
+        res.sendFile(path.join(__dirname, "static", "index.html"));
     }
 
     private static async login(req: Request, res: Response): Promise<void> {
