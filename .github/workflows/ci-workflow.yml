@@ -31,7 +31,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Spawn container
-        run: docker-compose up
+        run: docker-compose up -d
+      - name: Breath
+        run: sleep 10s
       - name: Install dependencies
         run: npm ci
       - name: Run Tests
