@@ -34,6 +34,8 @@ jobs:
         run: docker-compose up -d
       - name: Breath
         run: sleep 30s
+      - name: Log container
+        run: docker-compose log openldap
       - name: Install dependencies
         run: npm ci
       - name: Run Tests
