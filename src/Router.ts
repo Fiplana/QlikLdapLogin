@@ -5,7 +5,6 @@ import path from "path";
 import {QlikLdapLoginService} from "./QlikLdapLoginService";
 import {QpsUtil} from "./utils/QpsUtil";
 import {ConfigUtil} from "./utils/ConfigUtil";
-import {StringUtils} from "./utils/StringUtils";
 /**
  * Router that handels incoming requests.
  */
@@ -53,9 +52,9 @@ export class Router {
                     res.status(500).json({err: "Could not create ticket for qps."}).send();
                     return;
                 }
-                Logger.getLogger().debug("Url: " + StringUtils.trimChar(ticketResp.redirectUrl, "/"));
+                Logger.getLogger().debug("Url: " + _.trimEnd(ticketResp.redirectUrl, "/"));
                 const redirectUrl = new URL(
-                    StringUtils.trimChar(ticketResp.redirectUrl, "/") + "?qlikTicket=" + ticketResp.ticket,
+                    _.trimEnd(ticketResp.redirectUrl, "/") + "?qlikTicket=" + ticketResp.ticket,
                 );
                 res.status(200).send({url: redirectUrl.toString()});
             } else {
