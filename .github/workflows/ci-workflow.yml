@@ -40,3 +40,5 @@ jobs:
         run: npm ci
       - name: Run Tests
         run: npm run coverage
+        env:
+          LDAP_PORT: 1389
