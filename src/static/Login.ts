@@ -24,6 +24,7 @@ export class LoginFormController {
                 username: userName.value,
                 password: pwInput.value,
                 targetId: new URL(window.location.href).searchParams.get("targetId"),
+                proxyRestUri: new URL(window.location.href).searchParams.get("proxyRestUri"),
             }),
         })
             .then(async (response) => {
