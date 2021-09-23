@@ -24,20 +24,10 @@ export class QlikLdapLoginService {
      * Starts the service.
      */
     public static startServer(): void {
-        const port = QlikLdapLoginService.getPort();
+        const port = ConfigUtil.getServerPort();
         if (QlikLdapLoginService.instance === undefined) {
             QlikLdapLoginService.instance = new QlikLdapLoginService(port);
         }
-    }
-
-    /**
-     * Get's the port from an env var or usese default one.
-     */
-    public static getPort(): number {
-        if (process.env.SERVER_PORT !== undefined && !isNaN(parseInt(process.env.SERVER_PORT))) {
-            return parseInt(process.env.SERVER_PORT);
-        }
-        return QlikLdapLoginService.defaultServicePort;
     }
 
     /**
