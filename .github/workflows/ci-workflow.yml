@@ -30,9 +30,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Spawn ldap container
+      - name: Tests
         run: docker-compose up
-      - name: Install dependencies
         run: npm ci
-      - name: Build the stack
         run: npm run coverage
