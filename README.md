@@ -1,6 +1,6 @@
 # QlikLdapLogin
 In Qlik Sense (enterprise edition) you can add any LDAP server, to fetch it's users. You can assign licensens to them, and manage there access, etc.  
-However it is not possible to perfom a login with these useres, if your LDAP server doesn't support Windows Authentication. Therefor we implemented a simple service, wich can be used as a Qlik Sense Virtual Proxy, to authenticate the LDAP Users against any LDAP Server.  
+However it is not possible to perfom a login with these useres, if your LDAP server doesn't support Windows Authentication. Therefore we implemented a simple service, wich can be used as a Qlik Sense Virtual Proxy, to authenticate the LDAP Users against any LDAP Server.  
 ![](https://github.com/InformDataLab/.github/blob/main/images/QlikLdapLogin60Fps.gif)
 
 # Installation (Windows)
@@ -13,7 +13,7 @@ Run the following commands:
     npm install
     npm run build:prod
 ```
-After running these commands, there should appear a dist directory. Pleas register a Node.js Service which executes the "./dist/index.js" file as a deamon service. (System example here: https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/).  
+After running these commands, there should appear a dist directory. Please register a Node.js service which executes the "./dist/index.js" file as a deamon service. (System example here: https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/).  
 The working directory of the service should be the root directory (NOT ./dist)! 
 
 # Service configuration
@@ -33,6 +33,6 @@ Make sure that you restart the service after changing any of this env variables!
 # Qlik Sense Virtual Proxy Configuration
 In the Qlik Management Console you have to provide a new virtual proxy. You got to provide the following fields in the new virtual proxy:  
  -  Session cookie header name: X-Qlik-SessionLdap
- - Authentication module redirect uir: Here you got to provide the adress of this service (https://service:9000)
+ - Authentication module redirect URI: Here you got to provide the address of this service (https://service:9000)
  - Host allow list: Register this service as an allowed host (service:9000)
  - Under "Associated items", click onto "Proxies" and register the Central Node Proxy
