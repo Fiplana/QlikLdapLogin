@@ -33,7 +33,7 @@ jobs:
       - name: Spawn container
         run: docker-compose up -d
       - name: Breath
-        run: sleep 10s
+        run: sleep 30s
       - name: Install dependencies
         run: npm ci
       - name: Run Tests
