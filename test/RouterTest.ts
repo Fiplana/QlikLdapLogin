@@ -1,6 +1,5 @@
 import {Application} from "express";
 import {before, describe, it} from "mocha";
-import {expect} from "chai";
 import request from "supertest";
 import {QlikLdapLoginServiceHelper} from "./helper/QlikSenseLoginServiceHelper";
 import {LdapConnection} from "../src/ldap/LdapConnection";
