@@ -5,6 +5,7 @@ import path from "path";
 import {QlikLdapLoginService} from "./QlikLdapLoginService";
 import {QpsUtil} from "./utils/QpsUtil";
 import {ConfigUtil} from "./utils/ConfigUtil";
+import {UrlUtil} from "./utils/UrlUtil";
 /**
  * Router that handels incoming requests.
  */
@@ -46,10 +47,10 @@ export class Router {
                 const ticketResp = await QpsUtil.requestTicket(
                     checkResult.userId,
                     userDirectory,
-                    req.body.targetId != null ? req.body.targetId : undefined,
+                    UrlUtil.getRedirectParameters(req),
                 );
                 if (ticketResp.ticket === "") {
-                    res.status(500).json({err: "Could not create ticket for qps."}).send();
+                    res.status(500).json({err: "Could not create ticket"}).send();
                     return;
                 }
                 Logger.getLogger().debug("Url: " + _.trimEnd(ticketResp.redirectUrl, "/"));
