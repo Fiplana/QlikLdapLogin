@@ -4,11 +4,24 @@ import {readFileSync, existsSync} from "fs";
 import {Logger} from "./Logger";
 import {resolve} from "path";
 import {ILdapConnectionSettings} from "../types/ILdapConnectionSettings";
+import {QlikLdapLoginService} from "../QlikLdapLoginService";
 
 /**
  * Static helper class for config handling.
  */
 export class ConfigUtil {
+    /**
+     * Returns the LDAP settings.
+     */
+    public static getServerPort(): number {
+        dotenv.config({path: resolve(process.cwd(), ".env")});
+        const port = _.get(process.env, "SERVER_PORT", QlikLdapLoginService.defaultServicePort);
+        if (_.isFinite(parseInt(port.toString()))) {
+            return parseInt(port.toString());
+        }
+        return QlikLdapLoginService.defaultServicePort;
+    }
+
     /**
      * Returns the LDAP settings.
      */

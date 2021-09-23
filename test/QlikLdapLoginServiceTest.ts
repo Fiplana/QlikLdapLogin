@@ -9,20 +9,6 @@ describe("QlikLdapLoginService", () => {
     before(() => {
         Logger.initialize();
     });
-    describe("getPort", () => {
-        it("should get port from env var", () => {
-            process.env.SERVER_PORT = "12345";
-            expect(QlikLdapLoginServiceHelper.getPort()).to.be.equal(parseInt(process.env.SERVER_PORT));
-        });
-        it("should return default port on undefined env var", () => {
-            process.env.SERVER_PORT = undefined;
-            expect(QlikLdapLoginServiceHelper.getPort()).to.be.equal(QlikLdapLoginServiceHelper.defaultServicePort);
-        });
-        it("should return default port on NaN env var", () => {
-            process.env.SERVER_PORT = "test";
-            expect(QlikLdapLoginServiceHelper.getPort()).to.be.equal(QlikLdapLoginServiceHelper.defaultServicePort);
-        });
-    });
 
     describe("getTlsStartOptions", () => {
         const dirPath = path.join(process.cwd(), "getTlsStartOptions");
