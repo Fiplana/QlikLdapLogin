@@ -6,13 +6,6 @@ import {Application} from "express";
  */
 export class QlikLdapLoginServiceHelper extends QlikLdapLoginService {
     /**
-     * App getter.
-     */
-    public getApp(): Application {
-        return this.app;
-    }
-
-    /**
      * Overload start method.
      */
     public static startServer(): void {
@@ -31,5 +24,12 @@ export class QlikLdapLoginServiceHelper extends QlikLdapLoginService {
 
     protected constructor() {
         super(9000);
+    }
+
+    /**
+     * App getter.
+     */
+    public getApp(): Application {
+        return this.app;
     }
 }
