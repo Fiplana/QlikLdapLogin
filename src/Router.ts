@@ -30,30 +30,35 @@ export class Router {
             req.body.password === undefined ||
             req.body.password === ""
         ) {
-            res.status(400);
-            res.json({err: "Missing username or password!"});
-            res.send();
+            res.status(400).json({err: "Missing username or password!"}).send();
             return;
         }
         Logger.getLogger().info("Got login request for user: ", req.body.username);
         const checkResult = await connection.checkUser(req.body.username, req.body.password);
         if (checkResult.success === false) {
-            res.status(403);
-            res.json({err: _.get(checkResult, "error.message", "Unknown error occured.")});
-            res.send();
+            res.status(403)
+                .json({err: _.get(checkResult, "error.message", "Unknown error occured.")})
+                .send();
             return;
         } else {
             const userDirectory = ConfigUtil.getUserDirectory();
             if (checkResult.userId) {
-                const ticket = QpsUtil.requestTicket(checkResult.userId, userDirectory);
-                const redirectUrl = new URL(ConfigUtil.getHubUri() + "?qlikTicket=" + ticket);
-                res.redirect(redirectUrl.toString());
-                return;
+                const ticketResp = await QpsUtil.requestTicket(
+                    checkResult.userId,
+                    userDirectory,
+                    req.body.targetId != null ? req.body.targetId : undefined,
+                );
+                if (ticketResp.ticket === "") {
+                    res.status(500).json({err: "Could not create ticket for qps."}).send();
+                    return;
+                }
+                Logger.getLogger().debug("Url: " + _.trimEnd(ticketResp.redirectUrl, "/"));
+                const redirectUrl = new URL(
+                    _.trimEnd(ticketResp.redirectUrl, "/") + "?qlikTicket=" + ticketResp.ticket,
+                );
+                res.status(200).send({url: redirectUrl.toString()});
             } else {
-                res.status(500);
-                res.json({err: "No user identifier found"});
-                res.send();
-                return;
+                res.status(500).json({err: "No user identifier found"}).send();
             }
         }
     }
