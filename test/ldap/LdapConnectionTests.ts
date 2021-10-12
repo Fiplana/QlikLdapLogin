@@ -6,6 +6,9 @@ import {ConfigUtil} from "../../src/utils/ConfigUtil";
 
 describe("ldap", () => {
     describe("LdapConnection", () => {
+        before(() => {
+            ConfigUtil.setup();
+        });
         describe("checkUser", () => {
             it("should check a user successfully", async () => {
                 // assumes the LDAP server is running, see docker-compose.yml

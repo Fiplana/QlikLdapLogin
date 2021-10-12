@@ -24,7 +24,7 @@ export class ConfigUtil {
      * Returns the LDAP settings.
      */
     public static getServerPort(): number {
-        const port = _.get(nconf.get("SERVER_PORT"), QlikLdapLoginService.defaultServicePort);
+        const port = nconf.get("SERVER_PORT") ?? QlikLdapLoginService.defaultServicePort;
         if (_.isFinite(parseInt(port))) {
             return parseInt(port);
         }
@@ -35,13 +35,13 @@ export class ConfigUtil {
      * Returns the LDAP settings.
      */
     public static getLdapConnectionSettings(): ILdapConnectionSettings {
-        const host = _.get(nconf.get("LDAP_HOST"), "localhost");
-        const useSsl = _.get(nconf.get("LDAP_SSL"), "no") === "yes";
+        const host = nconf.get("LDAP_HOST") ?? "localhost";
+        const useSsl = (nconf.get("LDAP_SSL") ?? "no") === "yes";
         let defaultPort = 389;
         if (useSsl) {
             defaultPort = 636;
         }
-        let port = parseInt(_.get(nconf.get("LDAP_PORT"), ""));
+        let port = parseInt(nconf.get("LDAP_PORT") ?? "");
         if (!_.isFinite(port)) {
             Logger.getLogger().warn("Could not parse port ", nconf.get("LDAP_PORT"));
             port = defaultPort;
@@ -57,14 +57,14 @@ export class ConfigUtil {
      * Returns the configured URI of the QPS.
      */
     public static getQpsUri(): string {
-        return _.get(nconf.get("QPS_URI"), "https://qlikserver.example.org:4243/qps/customVirtualProxyPrefix");
+        return nconf.get("QPS_URI") ?? "https://qlikserver.example.org:4243/qps/customVirtualProxyPrefix";
     }
 
     /**
      * Returns the cached certificate for authentication.
      */
     public static getClientPfx(): Buffer {
-        const clientPfxPath = resolve(_.get(nconf.get("QPS_CERTIFICATE_PATH"), "./client.pfx"));
+        const clientPfxPath = resolve(nconf.get("QPS_CERTIFICATE_PATH") ?? "./client.pfx");
         if (!ConfigUtil.clientPfxCache.has(clientPfxPath)) {
             if (!existsSync(clientPfxPath)) {
                 throw new Error("Could not find the certificate:" + clientPfxPath);
@@ -82,28 +82,28 @@ export class ConfigUtil {
      * Returns the user directory for all users.
      */
     public static getUserDirectory(): string {
-        return _.get(nconf.get("USER_DIRECTORY_NAME"), "EXAMPLE");
+        return nconf.get("USER_DIRECTORY_NAME") ?? "EXAMPLE";
     }
 
     /**
      * Returns the LDAP field name for the user identifier.
      */
     public static getLdapUserIdField(): string {
-        return _.get(nconf.get("LDAP_USERID_FIELD"), "uid");
+        return nconf.get("LDAP_USERID_FIELD") ?? "uid";
     }
 
     /**
      * Returns the configured certificate password.
      */
     public static getClientPfxPassword(): string {
-        return _.get(nconf.get("QPS_CERTIFICATE_PASSWORD"), "");
+        return nconf.get("QPS_CERTIFICATE_PASSWORD") ?? "";
     }
 
     /**
      * Returns the configured redirect URI of the Qlik Sense hub.
      */
     public static getHubUri(): string {
-        return _.get(nconf.get("HUB_URI"), "https://qlikserver.example.org/hub/customVirtualProxyPrefix");
+        return nconf.get("HUB_URI") ?? "https://qlikserver.example.org/hub/customVirtualProxyPrefix";
     }
 
     private static clientPfxCache = new Map<string, Buffer>();
