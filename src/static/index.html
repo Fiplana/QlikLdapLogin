@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Custom qlik sense login via ldap">
+    <meta name="author" content="Inform GmbH">
+    <title>QlikLdapLoginService</title>
+    <link href="/bootstrapCss/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <!--
+         The default favicon was generated using the following graphics from Twitter Twemoji:
+           - Graphics Title: 1f47e.svg
+           - Graphics Author: Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji)
+           - Graphics Source: https://github.com/twitter/twemoji/blob/master/assets/svg/1f47e.svg
+           - Graphics License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+    -->
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    <script src="/popperJs/umd/popper.min.js"></script>
+    <script src="/bootstrapJs/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div id="tsparticles"></div>
+    <div class="container">
+        <div class="flexContainer">
+            <form class="flexForm text-center" onsubmit="event.preventDefault();">
+                <img id="customLogo" class="mb-4" src="/static/logo.png">
+                <h1 class="h3 mb-3 fw-normal">Qlik Ldap Login Service</h1>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="pwInput" placeholder="Password">
+                    <label for="pwInput">Password</label>
+                </div>
+                <button id="loginBtn" class="btn btn-primary w-100">Login</button>
+                <div id="errorDiv">
+                    <!--Errors will appear here-->
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="particles-js"></div>
+    <script src="/particlesJs/particles.js"></script>
+    <script>
+        /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+        window.addEventListener('DOMContentLoaded', (event) => {
+            particlesJS.load("particles-js", "/static/particles.json", function () {
+                console.log('callback - particles.js config loaded');
+            });
+        });
+    </script>
+    <script src="/static/login.js"></script>
+</body>
