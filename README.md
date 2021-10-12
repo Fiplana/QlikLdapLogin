@@ -17,7 +17,7 @@ Run the following commands:
     npm install
     npm run build:prod
 ```
-Pay attention, the ``` npm install ``` will install additional packages wich are under teh MIT license.
+Pay attention: ``` npm install ``` will install additional packages wich are under teh MIT license.
 After running these commands, there should appear a dist directory. Please register a Node.js service which executes the "./dist/index.js" file as a deamon service. (System example here: https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/).  
 The working directory of the service should be the root directory (NOT ./dist)! 
 
