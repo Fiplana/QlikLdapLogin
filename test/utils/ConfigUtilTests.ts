@@ -2,9 +2,13 @@ import {describe, it} from "mocha";
 import {expect} from "chai";
 import {ConfigUtil} from "../../src/utils/ConfigUtil";
 import {QlikLdapLoginServiceHelper} from "../helper/QlikSenseLoginServiceHelper";
+import nconf from "nconf";
 
 describe("utils", () => {
     describe("ConfigUtils", () => {
+        before(() => {
+            ConfigUtil.setup();
+        });
         describe("getQpsUri()", () => {
             it("should return the default QPS URI", () => {
                 expect(ConfigUtil.getQpsUri()).to.equal(
@@ -28,15 +32,15 @@ describe("utils", () => {
         });
         describe("getServerPort", () => {
             it("should get port from env var", () => {
-                process.env.SERVER_PORT = "12345";
-                expect(ConfigUtil.getServerPort()).to.be.equal(parseInt(process.env.SERVER_PORT));
+                nconf.set("SERVER_PORT", "12345");
+                expect(ConfigUtil.getServerPort()).to.be.equal(12345);
             });
             it("should return default port on undefined env var", () => {
-                process.env.SERVER_PORT = undefined;
+                nconf.set("SERVER_PORT", undefined);
                 expect(ConfigUtil.getServerPort()).to.be.equal(QlikLdapLoginServiceHelper.defaultServicePort);
             });
             it("should return default port on NaN env var", () => {
-                process.env.SERVER_PORT = "test";
+                nconf.set("SERVER_PORT", "test");
                 expect(ConfigUtil.getServerPort()).to.be.equal(QlikLdapLoginServiceHelper.defaultServicePort);
             });
         });

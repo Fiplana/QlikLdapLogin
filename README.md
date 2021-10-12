@@ -3,8 +3,12 @@ In Qlik Sense (enterprise edition) you can add any LDAP server, to fetch it's us
 However it is not possible to perfom a login with these useres, if your LDAP server doesn't support Windows Authentication. Therefore we implemented a simple service, wich can be used as a Qlik Sense Virtual Proxy, to authenticate the LDAP Users against any LDAP Server.  
 ![](https://github.com/InformDataLab/.github/blob/main/images/QlikLdapLogin60Fps.gif)
 
+# LICENSE
+All files in the directorys ```src``` and ```test``` are affected by the GNU GENERAL PUBLIC LICENSE Version 3. However, there are dependencies needed to build the service. All the dependencies can be found in the ```dependencies``` section of the file ```package.json```. All these external packages are currently licensed by the MIT license and not affected by the GNU GPL v3.
+
 # Installation (Windows)
 Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we recommend the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
+Pay attention, the script will install additional packages wich are under teh MIT license.
 
 # Installation (Linux)
 
@@ -13,11 +17,12 @@ Run the following commands:
     npm install
     npm run build:prod
 ```
+Pay attention: ``` npm install ``` will install additional packages wich are under teh MIT license.
 After running these commands, there should appear a dist directory. Please register a Node.js service which executes the "./dist/index.js" file as a deamon service. (System example here: https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/).  
 The working directory of the service should be the root directory (NOT ./dist)! 
 
 # Service configuration
-To configure the service you must provide a ".env" file. After executing the installation you should rename the "sample.env" file to "./.env". Then you can configure the following parameters in it: 
+To configure the service you must provide a "env.json" file. After executing the installation you should rename the "sample.env.json" file to "./env.json". Then you can configure the following keys in it: 
 | Variable                 | Description                                                                                                                                                             | Default Value                                              |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | CERT_FILE_PATH           | Path to a certificate (pem x509): Run this service under https instead of http (only works with KEY_FILE_PATH).                                                         | undefined                                                  |
