@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as dotenv from "dotenv";
+import nconf from "nconf";
 import {readFileSync, existsSync} from "fs";
 import {Logger} from "./Logger";
 import {resolve} from "path";
@@ -11,11 +11,20 @@ import {QlikLdapLoginService} from "../QlikLdapLoginService";
  */
 export class ConfigUtil {
     /**
+     * "Setup nconf.
+     * 1. Command-line arguments
+     * 2. Environment variables
+     * 3. A file located at 'path/to/config.json'""
+     * Source: https://www.npmjs.com/package/nconf
+     */
+    public static setup(): void {
+        nconf.argv().env().file(resolve(process.cwd(), "env.json"));
+    }
+    /**
      * Returns the LDAP settings.
      */
     public static getServerPort(): number {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        const port = _.get(process.env, "SERVER_PORT", QlikLdapLoginService.defaultServicePort);
+        const port = _.get(nconf.get("SERVER_PORT"), QlikLdapLoginService.defaultServicePort);
         if (_.isFinite(parseInt(port.toString()))) {
             return parseInt(port.toString());
         }
@@ -26,14 +35,13 @@ export class ConfigUtil {
      * Returns the LDAP settings.
      */
     public static getLdapConnectionSettings(): ILdapConnectionSettings {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        const host = _.get(process.env, "LDAP_HOST", "localhost");
-        const useSsl = _.get(process.env, "LDAP_SSL", "no") === "yes";
+        const host = _.get(nconf.get("LDAP_HOST"), "localhost");
+        const useSsl = _.get(nconf.get("LDAP_SSL"), "no") === "yes";
         let defaultPort = 389;
         if (useSsl) {
             defaultPort = 636;
         }
-        let port = parseInt(_.get(process.env, "LDAP_PORT", ""));
+        let port = parseInt(_.get(nconf.get("LDAP_PORT"), ""));
         if (!_.isFinite(port)) {
             Logger.getLogger().warn("Could not parse port ", process.env.LDAP_PORT);
             port = defaultPort;
@@ -49,16 +57,14 @@ export class ConfigUtil {
      * Returns the configured URI of the QPS.
      */
     public static getQpsUri(): string {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        return _.get(process.env, "QPS_URI", "https://qlikserver.example.org:4243/qps/customVirtualProxyPrefix");
+        return _.get(nconf.get("QPS_URI"), "https://qlikserver.example.org:4243/qps/customVirtualProxyPrefix");
     }
 
     /**
      * Returns the cached certificate for authentication.
      */
     public static getClientPfx(): Buffer {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        const clientPfxPath = resolve(_.get(process.env, "QPS_CERTIFICATE_PATH", "./client.pfx"));
+        const clientPfxPath = resolve(_.get(nconf.get("QPS_CERTIFICATE_PATH"), "./client.pfx"));
         if (!ConfigUtil.clientPfxCache.has(clientPfxPath)) {
             if (!existsSync(clientPfxPath)) {
                 throw new Error("Could not find the certificate:" + clientPfxPath);
@@ -76,32 +82,28 @@ export class ConfigUtil {
      * Returns the user directory for all users.
      */
     public static getUserDirectory(): string {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        return _.get(process.env, "USER_DIRECTORY_NAME", "EXAMPLE");
+        return _.get(nconf.get("USER_DIRECTORY_NAME"), "EXAMPLE");
     }
 
     /**
      * Returns the LDAP field name for the user identifier.
      */
     public static getLdapUserIdField(): string {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        return _.get(process.env, "LDAP_USERID_FIELD", "uid");
+        return _.get(nconf.get("LDAP_USERID_FIELD"), "uid");
     }
 
     /**
      * Returns the configured certificate password.
      */
     public static getClientPfxPassword(): string {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        return _.get(process.env, "QPS_CERTIFICATE_PASSWORD", "");
+        return _.get(nconf.get("QPS_CERTIFICATE_PASSWORD"), "");
     }
 
     /**
      * Returns the configured redirect URI of the Qlik Sense hub.
      */
     public static getHubUri(): string {
-        dotenv.config({path: resolve(process.cwd(), ".env")});
-        return _.get(process.env, "HUB_URI", "https://qlikserver.example.org/hub/customVirtualProxyPrefix");
+        return _.get(nconf.get("HUB_URI"), "https://qlikserver.example.org/hub/customVirtualProxyPrefix");
     }
 
     private static clientPfxCache = new Map<string, Buffer>();
