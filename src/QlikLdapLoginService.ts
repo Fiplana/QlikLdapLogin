@@ -24,6 +24,8 @@ export class QlikLdapLoginService {
      * Starts the service.
      */
     public static startServer(): void {
+        Logger.initialize();
+        ConfigUtil.setup();
         const port = ConfigUtil.getServerPort();
         if (QlikLdapLoginService.instance === undefined) {
             QlikLdapLoginService.instance = new QlikLdapLoginService(port);
@@ -65,8 +67,6 @@ export class QlikLdapLoginService {
     protected readonly server?: HTTPSServer | HTTPServer;
 
     protected constructor(port: number) {
-        Logger.initialize();
-        ConfigUtil.setup();
         const ldapSettings = ConfigUtil.getLdapConnectionSettings();
         Logger.getLogger().info("Current LDAP configuration: ", ldapSettings);
         this.ldapConnection = new LdapConnection(ldapSettings);

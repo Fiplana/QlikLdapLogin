@@ -18,15 +18,15 @@ export class ConfigUtil {
      * Source: https://www.npmjs.com/package/nconf
      */
     public static setup(): void {
-        nconf.argv().env().file(resolve(process.cwd(), "env.json"));
+        nconf.argv().env().file(process.cwd(), "env.json");
     }
     /**
      * Returns the LDAP settings.
      */
     public static getServerPort(): number {
         const port = _.get(nconf.get("SERVER_PORT"), QlikLdapLoginService.defaultServicePort);
-        if (_.isFinite(parseInt(port.toString()))) {
-            return parseInt(port.toString());
+        if (_.isFinite(parseInt(port))) {
+            return parseInt(port);
         }
         return QlikLdapLoginService.defaultServicePort;
     }
@@ -43,7 +43,7 @@ export class ConfigUtil {
         }
         let port = parseInt(_.get(nconf.get("LDAP_PORT"), ""));
         if (!_.isFinite(port)) {
-            Logger.getLogger().warn("Could not parse port ", process.env.LDAP_PORT);
+            Logger.getLogger().warn("Could not parse port ", nconf.get("LDAP_PORT"));
             port = defaultPort;
         }
         return {
