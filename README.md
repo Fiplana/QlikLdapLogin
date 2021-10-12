@@ -4,7 +4,7 @@ However it is not possible to perfom a login with these useres, if your LDAP ser
 ![](https://github.com/InformDataLab/.github/blob/main/images/QlikLdapLogin60Fps.gif)
 
 # LICENSE
-All files in the directorys ```src``` and ```test``` are affected by the GNU GENERAL PUBLIC LICENSE Version 3. However there are dependencies needed to build the service. Alle the dependencies can be found in the file ```package.json```. They are listed in the ```dependencies``` section of this file. All thes external packages licensed by the MIT license and not affected by the GNU GPL v3.
+All files in the directorys ```src``` and ```test``` are affected by the GNU GENERAL PUBLIC LICENSE Version 3. However, there are dependencies needed to build the service. All the dependencies can be found in the ```dependencies``` section of the file ```package.json```. All these external packages are currently licensed by the MIT license and not affected by the GNU GPL v3.
 
 # Installation (Windows)
 Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we recommend the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
