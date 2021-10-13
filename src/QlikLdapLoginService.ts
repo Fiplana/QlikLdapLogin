@@ -10,6 +10,7 @@ import {LdapConnection} from "./ldap/LdapConnection";
 import {ConfigUtil} from "./utils/ConfigUtil";
 import bodyParser from "body-parser";
 import cors from "cors";
+import nconf from "nconf";
 
 /**
  * This is the service class.
@@ -36,15 +37,17 @@ export class QlikLdapLoginService {
      * Returns the TLS Options if the certificates and the env vars are provided.
      */
     public static getTlsStartOptions(): ITLSOptions | undefined {
+        const certFilePath = nconf.get("CERT_FILE_PATH");
+        const keyFilePath = nconf.get("KEY_FILE_PATH");
         if (
-            process.env.CERT_FILE_PATH !== undefined &&
-            fs.existsSync(process.env.CERT_FILE_PATH) &&
-            process.env.KEY_FILE_PATH !== undefined &&
-            fs.existsSync(process.env.KEY_FILE_PATH)
+            certFilePath !== undefined &&
+            fs.existsSync(certFilePath) &&
+            keyFilePath !== undefined &&
+            fs.existsSync(keyFilePath)
         ) {
             return {
-                cert: fs.readFileSync(process.env.CERT_FILE_PATH),
-                key: fs.readFileSync(process.env.KEY_FILE_PATH),
+                cert: fs.readFileSync(certFilePath),
+                key: fs.readFileSync(keyFilePath),
             };
         }
         return undefined;
