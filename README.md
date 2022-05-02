@@ -52,7 +52,7 @@ In the Qlik Management Console (QMC) you have to provide a new virtual proxy. En
         -   yourQlikLdapURL
         -   yourQlikLdapURL:9000
     - On the righthand side, click <b>Associated items</b>, then click <b>Proxies</b>
-        - Register the Central Node Proxy (wie???)
+        - Register the Central Node Proxy
 
 2) Navigate to <i>User directory connectors</i>, click <b>Create new</b>
  - Provide the following fields:
