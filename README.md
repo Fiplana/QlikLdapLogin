@@ -8,7 +8,12 @@ All files in the directorys ```src``` and ```test``` are affected by the GNU GEN
 
 # Installation (Windows)
 Be sure that Node.js is installed on the Host that should run this service. You can download Node.js here: https://nodejs.org/en/ (we recommend the LTS version). After installing node you can execute the ./install/install_windows.bat, which will install the service as a windows service.
-Pay attention, the script will install additional packages wich are under teh MIT license.
+Pay attention, the script will install additional packages wich are under the MIT license.
+
+### Alternative installation (Windows)
+You can also install the service with the included QlikLdapLoginInstaller.exe. This is a installer build by the included Inno Setup file(.iss), which automatically installs Node.js and uses NSSM (Non-Sucking Service Manager) to start the QlikLdapLogin service for you. If you want to make changes to the .iss file you can download Inno Setup under the following URL: https://jrsoftware.org/isdl.php (Stable Release is recommended).
+
+
 
 # Installation (Linux)
 
