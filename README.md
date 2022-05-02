@@ -44,9 +44,52 @@ To configure the service you must provide a "env.json" file. After executing the
 Make sure that you restart the service after changing any of this env variables!!!
 
 # Qlik Sense Virtual Proxy Configuration
-In the Qlik Management Console you have to provide a new virtual proxy. You got to provide the following fields in the new virtual proxy:  
- - Session cookie header name: X-Qlik-SessionLdap
- - Prefix: customVirtualProxy (see Service Configuration Variables)
- - Authentication module redirect URI: Here you got to provide the address of this service (https://service:9000)
- - Host allow list: Register this service as an allowed host (service:9000)
- - Under "Associated items", click onto "Proxies" and register the Central Node Proxy
+The QlikLdapLogin service is from now on referred to as 'the service'.
+In the Qlik Management Console (QMC) you have to provide a new virtual proxy. Enter the QMC under https://yourQlikUrl/qmc.
+
+1) Navigate to <i>ConfigureSystem</i>-><i>Virtual</i> proxies. There
+ - Create a new one and provide the following fields:
+    - Session cookie header name: X-Qlik-SessionLdap
+    - Prefix: customVirtualProxy (see Service Configuration Variables)
+    - Authentication module redirect URI: Provide the address of the service (https://yourQlikLdapURL:9000)
+    - Host allow list: 
+        - Register the service (i.e. the QlikLdapLogin-Service)
+        -   yourQlikLdapURL
+        -   yourQlikLdapURL:9000
+    - On the righthand side, click <b>Associated items</b>, then click <b>Proxies</b>
+        - Register the Central Node Proxy
+
+2) Navigate to <i>User directory connectors</i>, click <b>Create new</b>
+ - Provide the following fields:
+    - <i>Connection</i>
+        - Name: <i>yourConnectorName</i>
+        - Path: Path to LDAP (e.g. ldap://yourLDAPURL/dc=SOMETHING,dc=SOMETHINGELSE)
+        - User Name: Your LDAP username (e.g. cn=admin,dc=SOMETHINGb,dc=SOMETHINGELSE)
+        - Password: Your LDAP password
+    - <i>Directory Entry Attributes</i>
+        - Your entry attributes ... 
+
+3) Navigate to <i>Manage Resources</i>-><i>Security rules</i>, add a rule
+ - Provide the following fields:
+    - Name: yourName
+    - Description: yourDescription
+    - Basic->Actions: Select <i>Duplicate</i>
+    - Below Actions, provide user filter that uses the configured connector, e.g. user -> userDirectory, value -> <i>yourConnectorName</i>
+This step allows the LDAP connector's users to use Qlik.
+
+4) If you want your LDAP users to use data connections, repeat step 3) for data connection-specific security rules. For that 
+ - Navigate to <i>Manage Content</i>-><i>Data connections</i>
+ - Double click the data connection you want to change
+ - Click <i>Associated items</i>-><i>Security rules</i>-><i>Create associated rule</i>
+ - Add rule that allows <i>read</i> access to LDAP users (or any broader group)
+
+5) Navigate to <i>Manage Resources</i>-><i>License management</i>-><i>User access rules</i> ( or <i>Manage Resources</i>-><i>License management</i>-><i>Professional access rules</i>, depending on qmc Version), click <b>Create new</b>
+ - Name: YourName
+ - Description: YourDescription
+ - Basic
+    - Allow access to user directory <i>yourConnectorName</i>
+ - Click <b>Apply</b>
+
+Done. Qlik should now allow access to all LDAP users.
+
+
