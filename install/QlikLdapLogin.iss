@@ -5,7 +5,6 @@
 #define MyAppVersion "1.0"
 #define MyAppPublisher "INFORM GmbH"
 #define MyAppURL "https://www.inform-datalab.de/"
-#define NSSM32 "nssm_32.exe"
 #define NSSM64 "nssm_64.exe"
 #define nodemsi "node-v16.14.2-x64.msi"
 
@@ -38,7 +37,6 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "{#SourcePath}\{#nodemsi}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\{#NSSM32}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourcePath}\{#NSSM64}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourcePath}..\dist\*"; DestDir: "{app}\dist"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourcePath}..\node_modules\*"; DestDir: "{app}\node_modules"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -51,6 +49,6 @@ Filename: "{sys}\msiexec.exe"; Parameters: "/passive /i ""{app}\{#nodemsi}""";
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Node In"" program=""{pf64}\nodejs\node.exe"" dir=in action=allow enable=yes"; Flags: runhidden;
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""Node Out"" program=""{pf64}\nodejs\node.exe"" dir=out action=allow enable=yes"; Flags: runhidden;
 
-Filename: "{app}\{#NSSM64}"; Parameters: "install {#MyAppName} ""{pf64}\nodejs\node.exe"" ""{app}\dist\index.js"""; Flags: runhidden;
-
+Filename: "{app}\{#NSSM64}"; Parameters: "install {#MyAppName} ""{pf64}\nodejs\node.exe"" ""{app}\dist\index.js"" "; Flags: runhidden;
+Filename: "{app}\{#NSSM64}"; Parameters: "set {#MyAppName} AppDirectory {app}"; Flags: runhidden;
 Filename: "{sys}\net.exe"; Parameters: "start {#MyAppName}"; Flags: runhidden;
