@@ -52,3 +52,8 @@ Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall add rule name=""N
 Filename: "{app}\{#NSSM64}"; Parameters: "install {#MyAppName} ""{pf64}\nodejs\node.exe"" ""{app}\dist\index.js"" "; Flags: runhidden;
 Filename: "{app}\{#NSSM64}"; Parameters: "set {#MyAppName} AppDirectory {app}"; Flags: runhidden;
 Filename: "{sys}\net.exe"; Parameters: "start {#MyAppName}"; Flags: runhidden;
+
+[UninstallRun]
+; pre-uninstall
+Filename: "{app}\{#NSSM64}"; Parameters: "stop {#MyAppName}"; Flags: runhidden;
+Filename: "{app}\{#NSSM64}"; Parameters: "remove {#MyAppName} confirm"; Flags: runhidden;
