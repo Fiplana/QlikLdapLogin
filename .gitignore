@@ -103,3 +103,7 @@ dist
 # TernJS port file
 .tern-port
 mocha.xml
+
+# Webstorm: Exclude everything but shared run configurations
+.idea/*
+!.idea/runConfigurations
